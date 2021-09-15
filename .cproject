@@ -109,8 +109,11 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="ilg.gnumcueclipse.managedbuild.cross.riscv.config.elf.release.1008047074.1760473063" name="AlgorithmTest.c" rcbsApplicability="disable" resourcePath="WaveTableSynthesizer/AlgorithmTest.c" toolsToInvoke="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.1731377187.1933219875">
+						<tool id="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.1731377187.1933219875" name="GNU RISC-V Cross C Compiler" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.1731377187"/>
+					</fileInfo>
 					<sourceEntries>
-						<entry excluding="ch32vLib|Startup|Peripheral|Ld|Debug|Core" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="WaveTableSynthesizer/AlgorithmTest.c|ch32vLib|Startup|Peripheral|Ld|Debug|Core" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Debug"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Ld"/>

@@ -67,6 +67,8 @@ lastLimiterGain:
 #define GPIOA_BOP            (GPIOA + 0x10U)    /*!< GPIO port bit operation register */
 #define GPIOA_BC 	 (GPIOA + 0x14U)    /*!< GPIO bit clear register */
 
+#define MSTATUS_MIE         0x00000008
+#define CSR_MSTATUS 0x300
 
 .func SynthAsm
 SynthAsm:
