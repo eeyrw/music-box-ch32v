@@ -57,10 +57,6 @@ lastLimiterGain:
 .equ PWM_OUT1,0x40000438
 .equ PWM_OUT2,0x4000043C
 
-#define SPI1              (0x40000000U + 0x00003800U)  /*!< SPI base address                 */
-
-#define SPI_DATA                  (SPI1 + 0x0CU)                   /*!< SPI data register */
-
 #define APB2_BUS_BASE         0x40010000U        /*!< apb2 base address                */
 #define GPIO_BASE             (APB2_BUS_BASE + 0x00000800U)  /*!< GPIO base address                */
 #define GPIOA                     (GPIO_BASE + 0x00000000U)
@@ -195,12 +191,11 @@ mv mixOut,t5
 saturateEnd:
 
 // mixOut: [-512,511] -> [0,1023]
-//add mixOut,mixOut,t5
-//li t5,PWM_OUT1
-//sh mixOut,(t5)
-//li t5,PWM_OUT2
-//sh mixOut,(t5)
-li t5,SPI_DATA
+li t5,512
+add mixOut,mixOut,t5
+li t5,PWM_OUT1
+sh mixOut,(t5)
+li t5,PWM_OUT2
 sh mixOut,(t5)
 mv pSoundUnit,a0
 sw mixOut,pMixOut(pSoundUnit)
