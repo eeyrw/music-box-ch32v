@@ -73,9 +73,9 @@ SynthAsm:
 #define loopIndex t2
 #define mixOut t3
 
-li t5,GPIOA_BOP
-li t4,(0x01<<2)|(0x01<<4)
-sw t4,(t5)
+//li t5,GPIOA_BOP
+//li t4,(0x01<<2)|(0x01<<4)
+//sw t4,(t5)
 
 li loopIndex, POLY_NUM
 mv mixOut, x0
@@ -118,7 +118,7 @@ li t5,150
 mul mixOut,t5,mixOut //pre vol
 srai mixOut,mixOut,8
 
-//j limiterEnd
+j limiterEnd
 
 #define FIX_POINT_WEIGHT 256
 #define GAIN_1_FIX FIX_POINT_WEIGHT
@@ -180,15 +180,17 @@ limiterEnd:
 
 
 // mixOut /=1<<6, 2^(10-1)<= mixOut <=2^(10-1)-1
-//srai mixOut,mixOut,(8+1)
-li t5,-32767
+srai mixOut,mixOut,(6)
+li t5,-511
 bge mixOut,t5,saturateLowerBoundSatisfied
 mv mixOut,t5
 saturateLowerBoundSatisfied:
-li t5,32767
+li t5,511
 ble mixOut,t5,saturateEnd
 mv mixOut,t5
 saturateEnd:
+
+srai mixOut,mixOut,8
 
 // mixOut: [-512,511] -> [0,1023]
 li t5,512
@@ -201,9 +203,9 @@ mv pSoundUnit,a0
 sw mixOut,pMixOut(pSoundUnit)
 
 
-li t5,GPIOA_BC
-li t4,(0x01<<2)|(0x01<<4)
-sw t4,(t5)
+//li t5,GPIOA_BC
+//li t4,(0x01<<2)|(0x01<<4)
+//sw t4,(t5)
 
 ret
 .endfunc
@@ -291,7 +293,11 @@ slli note,note,1
 la t5,WaveTable_Celesta_C5_Increment
 add t5,t5,note
 lhu t5,(t5)
-csrc CSR_MSTATUS, MSTATUS_MIE              // Disable all interrupt
+
+// Disable all interrupt
+li t1, 0x08
+csrc mstatus, t1
+
 sw t5,pIncrement(pSynth)
 mv t5,x0
 sw t5,pWavetablePos(pSynth)
@@ -306,7 +312,11 @@ sw t5,pWaveTableAttackLen(pSynth)
 sw x0,pEnvelopePos(pSynth)
 li t5,255
 sw t5,pEnvelopeLevel(pSynth)
-csrs CSR_MSTATUS, MSTATUS_MIE              // Enable all interrupt
+
+// Enable all interrupt
+li t1, 0x08
+csrs mstatus, t1
+
 mv pSynth,a0
 
 lw t5,pLastSoundUnit(pSynth)
