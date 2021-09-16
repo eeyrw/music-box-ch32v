@@ -118,7 +118,7 @@ li t5,150
 mul mixOut,t5,mixOut //pre vol
 srai mixOut,mixOut,8
 
-j limiterEnd
+//j limiterEnd
 
 #define FIX_POINT_WEIGHT 256
 #define GAIN_1_FIX FIX_POINT_WEIGHT
@@ -180,7 +180,7 @@ limiterEnd:
 
 
 // mixOut /=1<<6, 2^(10-1)<= mixOut <=2^(10-1)-1
-srai mixOut,mixOut,(6)
+srai mixOut,mixOut,6
 li t5,-511
 bge mixOut,t5,saturateLowerBoundSatisfied
 mv mixOut,t5
@@ -190,7 +190,7 @@ ble mixOut,t5,saturateEnd
 mv mixOut,t5
 saturateEnd:
 
-srai mixOut,mixOut,8
+// srai mixOut,mixOut,8
 
 // mixOut: [-512,511] -> [0,1023]
 li t5,512
